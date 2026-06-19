@@ -1,0 +1,40 @@
+---
+import Icon from './Icon.astro';
+interface Props {
+  email: string;
+}
+const { email } = Astro.props;
+---
+<button
+  type="button"
+  class="copy-email relative group flex items-center text-[var(--fg)] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white rounded"
+  data-email={email}
+  aria-label={`Copy email address ${email}`}
+>
+  <Icon name="mail" />
+  <span
+    role="tooltip"
+    class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max bg-[var(--bg-elevated)] border border-[var(--border)] text-white text-xs rounded-md px-2 py-1 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity pointer-events-none"
+  >
+    {email}
+  </span>
+</button>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.copy-email').forEach((btn) => {
+    const tip = btn.querySelector('[role="tooltip"]');
+    const email = btn.dataset.email ?? '';
+    btn.addEventListener('click', async () => {
+      if (!tip) return;
+      try {
+        await navigator.clipboard.writeText(email);
+        tip.textContent = 'Email copied!';
+      } catch {
+        tip.textContent = 'Copy failed — ' + email;
+      }
+      setTimeout(() => {
+        tip.textContent = email;
+      }, 2000);
+    });
+  });
+</script>

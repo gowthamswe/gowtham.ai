@@ -1,0 +1,35 @@
+---
+import { GISCUS } from '../consts';
+const enabled = Boolean(GISCUS.repo && GISCUS.repoId && GISCUS.categoryId);
+---
+<section class="mt-16 pt-8 border-t border-[var(--border)]">
+  {
+    enabled ? (
+      <>
+        <h2 class="text-lg font-bold text-[var(--fg-strong)] mb-4">Comments</h2>
+        <script
+          is:inline
+          src="https://giscus.app/client.js"
+          data-repo={GISCUS.repo}
+          data-repo-id={GISCUS.repoId}
+          data-category={GISCUS.category}
+          data-category-id={GISCUS.categoryId}
+          data-mapping="pathname"
+          data-strict="1"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="top"
+          data-theme="dark_dimmed"
+          data-lang="en"
+          crossorigin="anonymous"
+          async
+        />
+      </>
+    ) : (
+      <p class="text-sm text-[var(--fg-muted)]">
+        {/* Comments are powered by giscus. Add your repo details in src/consts.ts to enable them. */}
+        Comments are coming soon.
+      </p>
+    )
+  }
+</section>

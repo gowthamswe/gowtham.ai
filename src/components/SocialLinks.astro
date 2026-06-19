@@ -1,0 +1,35 @@
+---
+import { SOCIALS, SITE } from '../consts';
+import Icon from './Icon.astro';
+import CopyEmail from './CopyEmail.astro';
+---
+<footer class="flex items-center space-x-4 pt-8 md:pb-[100px]">
+  <a
+    href={SOCIALS.github}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="GitHub"
+    class="flex items-center text-[var(--fg)] hover:text-white"
+  >
+    <Icon name="github" />
+  </a>
+  <a
+    href={SOCIALS.linkedin}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="LinkedIn"
+    class="flex items-center text-[var(--fg)] hover:text-white"
+  >
+    <Icon name="linkedin" />
+  </a>
+  <CopyEmail email={SITE.email} />
+  <a
+    href="/resume.pdf"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Download resume (PDF)"
+    class="flex items-center text-[var(--fg)] hover:text-white"
+  >
+    <Icon name="file" />
+  </a>
+</footer>

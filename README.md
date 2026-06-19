@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# gowtham.ai
 
-## Getting Started
+Personal site + blog. Built with [Astro](https://astro.build), styled with
+Tailwind CSS v4, deployed as a static site to **Cloudflare Pages**.
 
-First, run the development server:
+## Develop
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```sh
+npm install
+npm run dev        # http://localhost:4321
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Build
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+npm run build      # static output → dist/
+npm run preview    # serve the built site locally
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project layout
 
-## Learn More
+```
+src/
+  components/      reusable UI (Icon, BaseHead, SocialLinks, Comments, …)
+  layouts/         BaseLayout (shell + <head>), BlogPost (article chrome)
+  pages/
+    index.astro    home (about, writing, projects, timeline)
+    blog/          blog index + [...slug] post route
+    rss.xml.js     RSS feed
+  content/blog/    posts (Markdown / MDX, typed frontmatter)
+  data/            timeline.ts, projects.ts
+  consts.ts        site config, socials, giscus settings
+scripts/
+  make-og.mjs      regenerates public/og.png (run `npm run og`)
+public/            static assets (resume.pdf, og.png, favicon, robots.txt)
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Writing a post
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Add a Markdown file under `src/content/blog/`:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```md
+---
+title: 'Post title'
+description: 'One-line summary for SEO and cards.'
+pubDate: 2026-06-19
+tags: ['kara', 'systems']
+draft: false        # true hides it from the published list
+comments: true      # false hides the comment section
+---
 
-## Deploy on Vercel
+Body in Markdown…
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Comments (giscus)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Comments use [giscus](https://giscus.app) (GitHub Discussions). To enable:
+
+1. Make the repo public and turn on **Discussions**.
+2. Generate config at <https://giscus.app> and paste the `repo`, `repoId`,
+   `category`, and `categoryId` into `GISCUS` in `src/consts.ts`.
+
+Until those are filled in, posts show a "Comments are coming soon" placeholder.
+
+## OG image
+
+`public/og.png` is generated from `scripts/make-og.mjs` and committed (CI build
+images can't render SVG text reliably). After editing the design, run
+`npm run og` and commit the new PNG.
+
+## Deploy
+
+Cloudflare Pages, connected to this repo:
+
+- **Build command:** `npm run build`
+- **Output directory:** `dist`
+- Custom domain `gowtham.ai` via Cloudflare DNS.

@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Icon from '../../components/Icon.astro';
+import { SITE } from '../../consts';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+<BaseLayout
+  title={`Writing — ${SITE.title}`}
+  description={`Notes and essays by ${SITE.author} on engineering, systems, and the Kāra language.`}
+>
+  <div class="min-h-screen flex justify-center">
+    <div class="w-full max-w-[760px] px-5 md:px-8 pt-[80px] pb-24">
+      <a
+        href="/"
+        class="inline-flex items-center gap-2 text-sm text-[var(--fg)] hover:text-white mb-10"
+      >
+        <Icon name="arrow-left" size={16} /> Home
+      </a>
+
+      <header class="mb-10">
+        <h1 class="glow text-[var(--fg-strong)] text-4xl font-bold">Writing</h1>
+        <p class="text-[var(--fg)] mt-3 max-w-[60ch]">
+          Notes on engineering, distributed systems, security, and building the Kāra language.
+        </p>
+      </header>
+
+      {
+        posts.length === 0 ? (
+          <p class="text-[var(--fg-muted)]">No posts yet — check back soon.</p>
+        ) : (
+          <ul class="flex flex-col gap-4">
+            {posts.map((post) => (
+              <li>
+                <a href={`/blog/${post.id}/`} class="block card hover:no-underline">
+                  <span class="block font-bold text-[var(--fg-strong)]">{post.data.title}</span>
+                  <span class="block text-sm text-[var(--fg-muted)] mt-1">
+                    <FormattedDate date={post.data.pubDate} />
+                  </span>
+                  <span class="block text-[var(--fg)] mt-2">{post.data.description}</span>
+                  {post.data.tags.length > 0 && (
+                    <span class="flex flex-wrap mt-3">
+                      {post.data.tags.map((tag) => (
+                        <span class="tag">{tag}</span>
+                      ))}
+                    </span>
+                  )}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </div>
+</BaseLayout>

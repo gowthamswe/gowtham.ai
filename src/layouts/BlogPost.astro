@@ -1,0 +1,76 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Comments from '../components/Comments.astro';
+import Icon from '../components/Icon.astro';
+import { SITE, SOCIALS } from '../consts';
+
+type Props = CollectionEntry<'blog'>['data'];
+const { title, description, pubDate, updatedDate, tags, comments } = Astro.props;
+
+const blogPostingLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  datePublished: pubDate.toISOString(),
+  dateModified: (updatedDate ?? pubDate).toISOString(),
+  author: {
+    '@type': 'Person',
+    name: SITE.author,
+    url: SITE.url,
+    sameAs: [SOCIALS.github, SOCIALS.linkedin],
+  },
+  url: new URL(Astro.url.pathname, SITE.url).toString(),
+  mainEntityOfPage: new URL(Astro.url.pathname, SITE.url).toString(),
+};
+---
+<BaseLayout
+  title={`${title} — ${SITE.title}`}
+  description={description}
+  type="article"
+  publishedTime={pubDate}
+  updatedTime={updatedDate}
+  jsonLd={blogPostingLd}
+>
+  <div class="min-h-screen flex justify-center">
+    <article class="w-full max-w-[760px] px-5 md:px-8 pt-[80px] pb-24">
+      <a
+        href="/blog"
+        class="inline-flex items-center gap-2 text-sm text-[var(--fg)] hover:text-white mb-10"
+      >
+        <Icon name="arrow-left" size={16} /> Writing
+      </a>
+
+      <header class="mb-8">
+        <h1 class="glow text-[var(--fg-strong)] text-3xl md:text-4xl font-bold leading-tight">
+          {title}
+        </h1>
+        <div class="flex items-center gap-3 mt-4 text-sm text-[var(--fg-muted)]">
+          <FormattedDate date={pubDate} />
+          {
+            updatedDate && (
+              <span>· updated <FormattedDate date={updatedDate} /></span>
+            )
+          }
+        </div>
+        {
+          tags.length > 0 && (
+            <div class="flex flex-wrap mt-3">
+              {tags.map((tag) => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+          )
+        }
+      </header>
+
+      <div class="prose">
+        <slot />
+      </div>
+
+      {comments && <Comments />}
+    </article>
+  </div>
+</BaseLayout>

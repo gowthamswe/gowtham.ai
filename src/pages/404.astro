@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../consts';
+---
+<BaseLayout title={`Page not found — ${SITE.title}`} description="Page not found.">
+  <div class="min-h-screen flex flex-col items-center justify-center text-center px-6">
+    <p class="glow text-6xl font-bold text-[var(--fg-strong)]">404</p>
+    <p class="text-[var(--fg)] mt-4">This page wandered off.</p>
+    <a href="/" class="mt-8 text-[var(--accent)] underline hover:text-white">← Back home</a>
+  </div>
+</BaseLayout>

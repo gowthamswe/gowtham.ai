@@ -1,0 +1,4 @@
+# Cloudflare Pages headers
+# Long-cache Astro's content-hashed assets; they never change once built.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
