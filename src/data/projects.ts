@@ -8,6 +8,17 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    name: 'Kāra — Programming Language & Compiler',
+    year: '2026',
+    description:
+      'A compiled, auto-parallelizing systems language built end-to-end — lexer through native LLVM and WebAssembly codegen. Rust-style ownership/borrow checking with no lifetime annotations, an effect system that infers reads/writes and auto-parallelizes independent work, generics via monomorphization, and 10,000+ tests with ASan/LeakSanitizer leak gates on every build.',
+    tags: ['Rust', 'LLVM', 'WebAssembly', 'Compilers'],
+    links: [
+      { label: 'karac.dev', href: 'https://karac.dev' },
+      { label: 'GitHub', href: 'https://github.com/karalang/kara' },
+    ],
+  },
+  {
     name: 'VideoVitals — Chrome Extension',
     year: '2026',
     description:
