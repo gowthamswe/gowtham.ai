@@ -32,4 +32,18 @@ export const projects: Project[] = [
       { label: 'GitHub', href: 'https://github.com/gowthamswe/video-vitals' },
     ],
   },
+  {
+    name: 'Simple Todo — Chrome Extension',
+    year: '2026',
+    description:
+      'A lightweight browser-action todo popup built on Manifest V3. Drag-and-drop task reordering, light/dark themes and adjustable text size, all persisted locally through chrome.storage — no backend, no dependencies.',
+    tags: ['Chrome MV3', 'JavaScript', 'chrome.storage'],
+    links: [
+      {
+        label: 'Chrome Web Store',
+        href: 'https://chromewebstore.google.com/detail/simple-todo-popup/paepbcgpkkeboklgnhnpaccoogpdllbf',
+      },
+      { label: 'GitHub', href: 'https://github.com/gowthamswe/simple-todo-plugin' },
+    ],
+  },
 ];
