@@ -14,105 +14,112 @@ const posts = (await getCollection('blog'))
   .slice(0, 3);
 ---
 <BaseLayout>
-  <div class="min-h-screen flex justify-center relative">
-    <div class="max-w-[1400px] w-full flex flex-col md:flex-row relative z-10">
-      <aside
-        class="w-full md:w-[30%] flex flex-col md:sticky md:top-0 md:self-start md:h-screen md:justify-between pt-[100px] pl-5 pb-6"
-      >
-        <div>
-          <h1 class="text-[var(--fg-strong)] text-4xl font-bold">{SITE.title}</h1>
-          <nav class="mt-6 flex gap-5 text-sm">
-            <a href="/" class="text-white">Home</a>
-            <a href="/blog" class="text-[var(--fg)] hover:text-white">Writing</a>
-          </nav>
-        </div>
-        <SocialLinks />
-      </aside>
+  {/* Same container as /blog and the post layout, so the whole site reads as
+      one column at one measure. */}
+  <div class="min-h-screen flex justify-center">
+    <div class="w-full max-w-[760px] px-5 md:px-8 pt-[80px] pb-24">
+      <header class="mb-12">
+        <h1 class="text-[var(--fg-strong)] text-4xl font-bold">{SITE.title}</h1>
+        <nav class="mt-4 flex gap-5 text-sm">
+          <a href="/" class="text-white">Home</a>
+          <a href="/blog" class="text-[var(--fg)] hover:text-white">Writing</a>
+        </nav>
+      </header>
 
-      <main class="w-full md:w-[70%] flex flex-col pb-10">
-        <section class="pt-[100px] pl-5 md:pl-20 pr-4 pb-4">
-          <h2 class="sr-only">About</h2>
-          <p class="text-[var(--fg)] text-lg max-w-[70ch]">{ABOUT}</p>
-        </section>
+      <section class="mb-14 text-[var(--fg)]">
+        <h2 class="sr-only">About</h2>
+        <p class="text-lg">{ABOUT}</p>
+      </section>
 
-        {
-          posts.length > 0 && (
-            <section class="pt-12 pl-5 md:pl-20 pr-4 text-[var(--fg)]">
-              <div class="flex items-baseline justify-between mb-4 max-w-[70ch]">
-                <h2 class="text-xl font-bold">Writing</h2>
-                <a href="/blog" class="text-sm underline hover:text-white inline-flex items-center gap-1">
-                  All posts <Icon name="arrow-right" size={14} />
-                </a>
-              </div>
+      {
+        posts.length > 0 && (
+          <section class="mb-14 text-[var(--fg)]">
+            <div class="flex items-baseline justify-between mb-4">
+              <h2 class="text-xl font-bold">Writing</h2>
+              <a href="/blog" class="text-sm underline hover:text-white inline-flex items-center gap-1">
+                All posts <Icon name="arrow-right" size={14} />
+              </a>
+            </div>
+            <div class="flex flex-col gap-4">
               {posts.map((post) => (
-                <a href={`/blog/${post.id}/`} class="flex mb-5 card max-w-[70ch] hover:no-underline">
-                  <div class="flex flex-col">
-                    <span class="font-bold text-[var(--fg-strong)]">{post.data.title}</span>
-                    <span class="text-sm text-[var(--fg-muted)] mt-1">
-                      <FormattedDate date={post.data.pubDate} />
-                    </span>
-                    <span class="mt-2">{post.data.description}</span>
-                  </div>
+                <a href={`/blog/${post.id}/`} class="block card hover:no-underline">
+                  <span class="block font-bold text-[var(--fg-strong)]">{post.data.title}</span>
+                  <span class="block text-sm text-[var(--fg-muted)] mt-1">
+                    <FormattedDate date={post.data.pubDate} />
+                  </span>
+                  <span class="block mt-2">{post.data.description}</span>
                 </a>
               ))}
-            </section>
-          )
-        }
+            </div>
+          </section>
+        )
+      }
 
-        <section class="pt-12 pl-5 md:pl-20 pr-4 text-[var(--fg)]">
-          <h2 class="text-xl font-bold mb-4">Projects</h2>
+      <section class="mb-14 text-[var(--fg)]">
+        <h2 class="text-xl font-bold mb-4">Projects</h2>
+        <div class="flex flex-col gap-4">
           {
             projects.map((project) => (
-              <div class="flex mb-5 card max-w-[70ch]">
-                <div class="flex flex-col">
-                  <span class="font-bold">
-                    {project.name} <span class="ml-2">({project.year})</span>
-                  </span>
-                  <span class="mt-2">{project.description}</span>
-                  <div class="flex flex-wrap mt-2 items-center">
-                    {project.tags.map((tag) => (
-                      <span class="tag">{tag}</span>
-                    ))}
-                    {project.links.map((link) => (
-                      <a
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="ml-2 text-sm underline hover:text-white"
-                      >
-                        {link.label}
-                      </a>
-                    ))}
-                  </div>
+              <div class="card">
+                <span class="block font-bold">
+                  {project.name} <span class="ml-2">({project.year})</span>
+                </span>
+                <span class="block mt-2">{project.description}</span>
+                <div class="flex flex-wrap mt-2 items-center">
+                  {project.tags.map((tag) => (
+                    <span class="tag">{tag}</span>
+                  ))}
+                  {project.links.map((link) => (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="ml-2 text-sm underline hover:text-white"
+                    >
+                      {link.label}
+                    </a>
+                  ))}
                 </div>
               </div>
             ))
           }
-        </section>
+        </div>
+      </section>
 
-        <section class="pt-12 pl-5 md:pl-20 pr-4 text-[var(--fg)]">
-          <h2 class="text-xl font-bold mb-4">Timeline</h2>
+      <section class="mb-14 text-[var(--fg)]">
+        <h2 class="text-xl font-bold mb-4">Timeline</h2>
+        <div class="flex flex-col gap-4">
           {
             timeline.map((entry) => (
-              <div class="flex mb-5 card max-w-[70ch]">
-                <div class="flex flex-col">
-                  <span class="font-bold">
-                    {entry.title} <span class="ml-2">({entry.year})</span>
-                  </span>
-                  {entry.description && <span class="mt-2">{entry.description}</span>}
-                  {entry.tags && entry.tags.length > 0 && (
-                    <div class="flex flex-wrap mt-2">
-                      {entry.tags.map((tag) => (
-                        <span class="tag">{tag}</span>
-                      ))}
-                    </div>
-                  )}
-                </div>
+              <div class="card">
+                <span class="block font-bold">
+                  {entry.title} <span class="ml-2">({entry.year})</span>
+                </span>
+                {entry.description && <span class="block mt-2">{entry.description}</span>}
+                {entry.tags && entry.tags.length > 0 && (
+                  <div class="flex flex-wrap mt-2">
+                    {entry.tags.map((tag) => (
+                      <span class="tag">{tag}</span>
+                    ))}
+                  </div>
+                )}
               </div>
             ))
           }
-        </section>
-      </main>
+        </div>
+      </section>
+
+      <footer
+        class="mt-16 pt-8 border-t border-[var(--border)] flex items-center justify-between gap-4"
+      >
+        <SocialLinks />
+        <a
+          href="/blog"
+          class="text-sm text-[var(--fg)] underline hover:text-white inline-flex items-center gap-1"
+        >
+          Writing <Icon name="arrow-right" size={14} />
+        </a>
+      </footer>
     </div>
   </div>
 </BaseLayout>
