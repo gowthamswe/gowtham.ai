@@ -10,6 +10,10 @@ export const SITE = {
   author: 'Gowtham Mallikarjuna',
 };
 
+// Browser UI tint. Keep in sync with --bg in src/styles/global.css — a <meta>
+// tag can't read a CSS custom property, so this is the one honest duplicate.
+export const THEME_COLOR = '#1e1e1e';
+
 export const ABOUT =
   'Software Engineer with 9+ years across Meta and Amazon, focused on large-scale distributed systems, platform security, and experimentation-driven product development. Currently leading security and integrity work for Instagram account recovery — designing policies, running A/B experiments, and prototyping LLM-based remediation. Previously delivered full-stack and cloud infrastructure for Amazon Pharmacy and Amazon Fulfillment.';
 

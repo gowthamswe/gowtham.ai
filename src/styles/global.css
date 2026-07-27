@@ -32,11 +32,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* the name — a restrained editor-blue accent rather than a glow */
-.glow {
-  color: var(--fg-strong);
-}
-
 .card {
   background: var(--bg-elevated);
   border: 1px solid var(--border);
@@ -140,4 +135,18 @@ body {
 .prose img {
   border-radius: 6px;
   margin: 1.5rem 0;
+}
+
+/* Drop the motion, keep the feedback: cards still change border and
+   background on hover, they just don't lift. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .card {
+    transition: none;
+  }
+  .card:hover {
+    transform: none;
+  }
 }

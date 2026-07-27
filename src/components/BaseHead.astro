@@ -1,15 +1,8 @@
 ---
-import { SITE, SOCIALS } from '../consts';
+import { SITE, SOCIALS, THEME_COLOR } from '../consts';
+import type { HeadProps } from '../types';
 
-interface Props {
-  title?: string;
-  description?: string;
-  image?: string;
-  type?: 'website' | 'article';
-  publishedTime?: Date;
-  updatedTime?: Date;
-  jsonLd?: Record<string, unknown>;
-}
+type Props = HeadProps;
 
 const {
   title = `${SITE.title} — ${SITE.jobTitle}`,
@@ -39,7 +32,7 @@ const structuredData = jsonLd ?? personLd;
 ---
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="theme-color" content="#1e1e1e" />
+<meta name="theme-color" content={THEME_COLOR} />
 <meta name="generator" content={Astro.generator} />
 
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />

@@ -17,10 +17,10 @@ const posts = (await getCollection('blog'))
   <div class="min-h-screen flex justify-center relative">
     <div class="max-w-[1400px] w-full flex flex-col md:flex-row relative z-10">
       <aside
-        class="w-full md:w-[30vw] flex flex-col md:sticky md:top-0 md:self-start md:h-screen md:justify-between pt-[100px] pl-4 pb-6"
+        class="w-full md:w-[30vw] flex flex-col md:sticky md:top-0 md:self-start md:h-screen md:justify-between pt-[100px] pl-5 pb-6"
       >
         <div>
-          <h1 class="glow text-[var(--fg-strong)] text-4xl">{SITE.title}</h1>
+          <h1 class="text-[var(--fg-strong)] text-4xl">{SITE.title}</h1>
           <nav class="mt-6 flex gap-5 text-sm">
             <a href="/" class="text-white">Home</a>
             <a href="/blog" class="text-[var(--fg)] hover:text-white">Writing</a>
@@ -30,7 +30,7 @@ const posts = (await getCollection('blog'))
       </aside>
 
       <main class="w-full md:w-[70vw] flex flex-col pb-10">
-        <section class="pt-[100px] pl-4 md:pl-20 pr-4 pb-4">
+        <section class="pt-[100px] pl-5 md:pl-20 pr-4 pb-4">
           <h2 class="sr-only">About</h2>
           <p class="text-[var(--fg)] text-lg max-w-[70ch]">{ABOUT}</p>
         </section>

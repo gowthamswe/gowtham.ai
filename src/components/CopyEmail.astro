@@ -24,6 +24,7 @@ const { email } = Astro.props;
   document.querySelectorAll<HTMLButtonElement>('.copy-email').forEach((btn) => {
     const tip = btn.querySelector('[role="tooltip"]');
     const email = btn.dataset.email ?? '';
+    let resetTimer: ReturnType<typeof setTimeout>;
     btn.addEventListener('click', async () => {
       if (!tip) return;
       try {
@@ -32,7 +33,10 @@ const { email } = Astro.props;
       } catch {
         tip.textContent = 'Copy failed — ' + email;
       }
-      setTimeout(() => {
+      // re-arm rather than stack, so a second click doesn't get cut short by
+      // the first click's pending reset
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => {
         tip.textContent = email;
       }, 2000);
     });

@@ -3,16 +3,9 @@ import '@fontsource-variable/geist';
 import '@fontsource-variable/geist-mono';
 import '../styles/global.css';
 import BaseHead from '../components/BaseHead.astro';
+import type { HeadProps } from '../types';
 
-interface Props {
-  title?: string;
-  description?: string;
-  image?: string;
-  type?: 'website' | 'article';
-  publishedTime?: Date;
-  updatedTime?: Date;
-  jsonLd?: Record<string, unknown>;
-}
+type Props = HeadProps;
 ---
 <!doctype html>
 <html lang="en">
