@@ -19,6 +19,17 @@ export const projects: Project[] = [
     ],
   },
   {
+    name: 'Prism & Veil — Kāra in the Browser',
+    year: '2026',
+    description:
+      'Two image tools whose compute kernels are written in Kāra and compiled to WebAssembly by its own backend — the browser only decodes and re-encodes. Prism is an image workbench: Lanczos-3 and bilinear resampling, crop, rotate, flip, and brightness/contrast/saturation adjustment. Veil redacts screenshots with solid-bar, pixelate, or blur, stripping EXIF and GPS data on export. Both run entirely on-device.',
+    tags: ['Kāra', 'WebAssembly', 'Image Processing', 'Privacy'],
+    links: [
+      { label: 'Prism', href: 'https://karac.dev/prism/' },
+      { label: 'Veil', href: 'https://karac.dev/veil/' },
+    ],
+  },
+  {
     name: 'VideoVitals — Chrome Extension',
     year: '2026',
     description:
