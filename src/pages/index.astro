@@ -86,27 +86,33 @@ const posts = (await getCollection('blog'))
         </div>
       </section>
 
+      {/* No cards here, unlike Projects — the year gutter is what makes this
+          read as a chronology rather than a second list of things. Mono keeps
+          the years the same width so they line up into a scannable column. */}
       <section class="mb-14 text-[var(--fg)]">
-        <h2 class="text-xl font-bold mb-4">Timeline</h2>
-        <div class="flex flex-col gap-4">
+        <h2 class="text-xl font-bold mb-6">Timeline</h2>
+        <ul class="flex flex-col gap-10">
           {
             timeline.map((entry) => (
-              <div class="card">
-                <span class="block font-bold">
-                  {entry.title} <span class="ml-2">({entry.year})</span>
-                </span>
-                {entry.description && <span class="block mt-2">{entry.description}</span>}
-                {entry.tags && entry.tags.length > 0 && (
-                  <div class="flex flex-wrap mt-2">
-                    {entry.tags.map((tag) => (
-                      <span class="tag">{tag}</span>
-                    ))}
-                  </div>
-                )}
-              </div>
+              <li class="flex flex-col md:flex-row md:gap-6">
+                <div class="shrink-0 md:w-32 font-mono text-sm text-[var(--fg-muted)] md:pt-1">
+                  {entry.year}
+                </div>
+                <div class="min-w-0 mt-1 md:mt-0">
+                  <h3 class="font-bold text-[var(--fg-strong)]">{entry.title}</h3>
+                  {entry.description && <p class="mt-2">{entry.description}</p>}
+                  {entry.tags && entry.tags.length > 0 && (
+                    <div class="flex flex-wrap mt-2">
+                      {entry.tags.map((tag) => (
+                        <span class="tag">{tag}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </li>
             ))
           }
-        </div>
+        </ul>
       </section>
 
       <footer
