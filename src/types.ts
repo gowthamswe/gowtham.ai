@@ -4,6 +4,7 @@ export interface HeadProps {
   title?: string;
   description?: string;
   image?: string;
+  imageAlt?: string;
   type?: 'website' | 'article';
   publishedTime?: Date;
   updatedTime?: Date;

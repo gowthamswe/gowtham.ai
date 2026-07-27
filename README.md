@@ -13,9 +13,18 @@ npm run dev        # http://localhost:4321
 ## Build
 
 ```sh
-npm run build      # static output → dist/
+npm run build      # astro check, then static output → dist/
+npm run check      # type-check only
 npm run preview    # serve the built site locally
 ```
+
+`npm run build` runs `astro check` first, so a type error fails the build and
+blocks the deploy. Run `npm run check` on its own for a faster loop.
+
+> **TypeScript is pinned to 6.x on purpose.** `astro check` needs the
+> programmatic compiler API, which TypeScript 7's native compiler doesn't
+> expose yet. Upgrading to 7 breaks the build with a confusing error — see
+> <https://github.com/withastro/roadmap/discussions/1321>.
 
 ## Project layout
 
