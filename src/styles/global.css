@@ -14,7 +14,9 @@
   --border-strong: #454545;
   --fg: #d4d4d4; /* default editor foreground */
   --fg-strong: #ffffff;
-  --fg-muted: #858585; /* line numbers / comments */
+  /* Dark+ uses #858585 here, but on --bg-elevated that lands at 4.15:1 —
+     under the 4.5:1 AA floor for body text. Lightened to clear it (5.4:1). */
+  --fg-muted: #9a9a9a;
   --accent: #569cd6; /* keyword blue */
   --accent-2: #4ec9b0; /* type teal */
   --link: #4daafc; /* link blue */
@@ -37,16 +39,31 @@ body {
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: 18px 20px;
+}
+
+/* Hover belongs only to cards that are actually links. Project and timeline
+   cards are plain <div>s, and lifting them promised a click target that was
+   never there. Wrapping one in an <a> re-enables this automatically. */
+a.card {
   transition:
     border-color 0.2s,
     background 0.2s,
     transform 0.2s;
 }
 
-.card:hover {
+a.card:hover {
   border-color: var(--border-strong);
   background: var(--bg-hover);
   transform: translateY(-1px);
+}
+
+/* Keyboard focus needs to be visible against a dark background; the UA default
+   is nearly invisible here. :where() keeps specificity at 0 so component-level
+   focus styles still win. */
+:where(a, button):focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 .tag {
@@ -143,10 +160,10 @@ body {
   html {
     scroll-behavior: auto;
   }
-  .card {
+  a.card {
     transition: none;
   }
-  .card:hover {
+  a.card:hover {
     transform: none;
   }
 }

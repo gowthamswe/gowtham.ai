@@ -6,10 +6,14 @@ const { date } = Astro.props;
 ---
 <time datetime={date.toISOString()}>
   {
+    // Render in UTC. A bare `pubDate: 2026-06-19` parses to UTC midnight, so
+    // formatting in the viewer's zone shows the previous day everywhere west
+    // of UTC — the whole Americas saw "Jun 18" for a post dated the 19th.
     date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
+      timeZone: 'UTC',
     })
   }
 </time>
