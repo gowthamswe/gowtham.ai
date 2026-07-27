@@ -61,22 +61,32 @@ const posts = (await getCollection('blog'))
           {
             projects.map((project) => (
               <div class="card">
-                <span class="block font-bold">
-                  {project.name} <span class="ml-2">({project.year})</span>
-                </span>
-                <span class="block mt-2">{project.description}</span>
-                <div class="flex flex-wrap mt-2 items-center">
-                  {project.tags.map((tag) => (
-                    <span class="tag">{tag}</span>
-                  ))}
+                <div class="flex items-baseline justify-between gap-4">
+                  <h3 class="font-bold text-[var(--fg-strong)]">{project.name}</h3>
+                  <span class="shrink-0 font-mono text-sm text-[var(--fg-muted)]">
+                    {project.year}
+                  </span>
+                </div>
+                <p class="mt-2">{project.description}</p>
+                {project.tags.length > 0 && (
+                  <div class="flex flex-wrap mt-3">
+                    {project.tags.map((tag) => (
+                      <span class="tag">{tag}</span>
+                    ))}
+                  </div>
+                )}
+                {/* Own row, not trailing the tags. The card isn't clickable, so
+                    these are the only way into a project. */}
+                <div class="flex flex-wrap items-center gap-x-5 gap-y-2 mt-3">
                   {project.links.map((link) => (
                     <a
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      class="ml-2 text-sm underline hover:text-white"
+                      class="inline-flex items-center gap-1.5 text-sm text-[var(--link)] underline hover:text-white"
                     >
                       {link.label}
+                      <Icon name="external-link" size={13} />
                     </a>
                   ))}
                 </div>

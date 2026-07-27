@@ -1,7 +1,15 @@
 ---
 // Minimal inline-SVG icon set (feather-style) so we don't pull in an icon runtime.
 interface Props {
-  name: 'github' | 'linkedin' | 'mail' | 'file' | 'arrow-left' | 'arrow-right' | 'rss';
+  name:
+    | 'github'
+    | 'linkedin'
+    | 'mail'
+    | 'file'
+    | 'arrow-left'
+    | 'arrow-right'
+    | 'external-link'
+    | 'rss';
   size?: number;
   class?: string;
 }
@@ -16,6 +24,8 @@ const paths: Record<Props['name'], string> = {
   file: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>',
   'arrow-left': '<line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>',
   'arrow-right': '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>',
+  'external-link':
+    '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>',
   rss: '<path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/>',
 };
 ---
