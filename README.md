@@ -1,7 +1,7 @@
 # gowtham.ai
 
 Personal site + blog. Built with [Astro](https://astro.build), styled with
-Tailwind CSS v4, deployed as a static site to **Cloudflare Pages**.
+Tailwind CSS v4, deployed as a static site to **GitHub Pages**.
 
 ## Develop
 
@@ -79,8 +79,11 @@ images can't render SVG text reliably). After editing the design, run
 
 ## Deploy
 
-Cloudflare Pages, connected to this repo:
+GitHub Pages, via `.github/workflows/deploy.yml`. Every push to `main` runs
+`npm run build` and publishes `dist/`.
 
-- **Build command:** `npm run build`
-- **Output directory:** `dist`
-- Custom domain `gowtham.ai` via Cloudflare DNS.
+- **Repo settings → Pages → Source:** GitHub Actions.
+- `public/CNAME` holds the custom domain (`gowtham.ai`); its DNS points at
+  GitHub Pages.
+- GitHub Pages can't set custom response headers, so there is no `_headers`
+  file.
